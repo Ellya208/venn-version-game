@@ -46,10 +46,9 @@ export function Level1_2({ onNextLevel }: { onNextLevel?: () => void }) {
   ) => {
     e.preventDefault();
     const id = e.dataTransfer.getData("text/plain");
-
-    if (id.startsWith('http')) return
-
+    
     if (id) {
+      if (id.startsWith('http')) return
       setDroppedItems((prev) =>
         prev.find((item) => item.id === id)
           ? prev.map((item) => (item.id === id ? { id, target } : item))
