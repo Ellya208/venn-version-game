@@ -53,6 +53,8 @@ export default function VennDiagram({
     e.preventDefault();
     const id = e.dataTransfer.getData("text/plain");
 
+    if (id.startsWith('http')) return
+
     if (id) {
       setDroppedItems((prev) =>
         prev.find((item) => item.id === id)
