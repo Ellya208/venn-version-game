@@ -27,10 +27,13 @@ export default function VennDiagram({
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
   const checkAnswer = () => {
+    // check if all placed item is correct
     const allCorrect = droppedItems.every((droppedItem) => {
       const item = items.find((i) => i.id === droppedItem.id);
       return droppedItem.target === item.target;
     });
+
+    // check if every item is placed
     const allItemsPlaced = items.every((item) =>
       droppedItems.map((a) => a.id).includes(item.id)
     );
@@ -63,17 +66,21 @@ export default function VennDiagram({
     e.preventDefault();
   };
 
+  const onRemoveDroppedItem = (id: string) => {
+    setDroppedItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
   return (
     <div>
       <div className="mt-10">
-        <div className="prose">
+        <div className="prose text-xl">
           <p>
             Drag and place their orders into the correct set. After that, click
             on the part of intersection.
           </p>
         </div>
       </div>
-      
+
       {/* Draggable Items */}
       <div className="mb-8 flex gap-2">
         {items.map((item) => (
@@ -88,10 +95,10 @@ export default function VennDiagram({
         ))}
       </div>
 
-      <div className="relative w-[800px]">
+      <div className="relative w-[800px] h-[630px] items-end flex bg-white border m-1">
         {/* render droppedItems for Ali */}
         <div
-          className="absolute w-[160px] h-[310px] top-[150px] left-[110px] flex flex-col justify-center items-start"
+          className="absolute w-[160px] h-[310px] top-[180px] left-[110px] flex flex-col justify-center items-start z-10"
           onDrop={(e) => onDrop(e, "ali")}
           onDragOver={onDragOver}
         >
@@ -99,13 +106,21 @@ export default function VennDiagram({
             .filter((a) => a.target === "ali")
             .map(({ id }) => {
               const item = items.find((item) => item.id === id);
-              return <div key={id}>{item?.value}</div>;
+              return (
+                <div
+                  className="cursor-pointer"
+                  onClick={() => onRemoveDroppedItem(item.id)}
+                  key={id}
+                >
+                  {item?.value}
+                </div>
+              );
             })}
         </div>
 
         {/* render droppedItems for Siti */}
         <div
-          className="absolute w-[160px] h-[310px] top-[150px] right-[110px] flex flex-col justify-center items-end"
+          className="absolute w-[160px] h-[310px] top-[180px] right-[110px] flex flex-col justify-center items-end z-10"
           onDrop={(e) => onDrop(e, "siti")}
           onDragOver={onDragOver}
         >
@@ -113,13 +128,21 @@ export default function VennDiagram({
             .filter((a) => a.target === "siti")
             .map(({ id }) => {
               const item = items.find((item) => item.id === id);
-              return <div key={id}>{item?.value}</div>;
+              return (
+                <div
+                  className="cursor-pointer"
+                  onClick={() => onRemoveDroppedItem(item.id)}
+                  key={id}
+                >
+                  {item?.value}
+                </div>
+              );
             })}
         </div>
 
         {/* render droppedItems for intersect */}
         <div
-          className="absolute w-[170px] h-[280px] top-[170px] left-[315px] flex flex-col justify-center items-center"
+          className="absolute w-[170px] h-[280px] top-[200px] left-[315px] flex flex-col justify-center items-center z-10"
           onDrop={(e) => onDrop(e, "intersection")}
           onDragOver={onDragOver}
         >
@@ -127,7 +150,37 @@ export default function VennDiagram({
             .filter((a) => a.target === "intersection")
             .map(({ id }) => {
               const item = items.find((item) => item.id === id);
-              return <div key={id}>{item?.value}</div>;
+              return (
+                <div
+                  className="cursor-pointer"
+                  onClick={() => onRemoveDroppedItem(item.id)}
+                  key={id}
+                >
+                  {item?.value}
+                </div>
+              );
+            })}
+        </div>
+
+        {/* render droppedItems for outside */}
+        <div
+          className="absolute w-full h-full flex flex-col p-3 items-center z-0"
+          onDrop={(e) => onDrop(e, "outside")}
+          onDragOver={onDragOver}
+        >
+          {droppedItems
+            .filter((a) => a.target === "outside")
+            .map(({ id }) => {
+              const item = items.find((item) => item.id === id);
+              return (
+                <div
+                  className="cursor-pointer"
+                  onClick={() => onRemoveDroppedItem(item.id)}
+                  key={id}
+                >
+                  {item?.value}
+                </div>
+              );
             })}
         </div>
 
@@ -138,7 +191,6 @@ export default function VennDiagram({
           viewBox="-2 -1 4 3"
           style={{
             backgroundColor: "white",
-            border: "1px solid #ccc",
           }}
         >
           {/* Circle Ali */}
@@ -210,7 +262,13 @@ export default function VennDiagram({
               <div className="flex gap-4 items-center">
                 <CheckCircle2 className="w-6 h-6" />
                 <div className="flex flex-col">
-                  <span>Yes, that's exactly right! An intersection of sets occurs when the sets overlap, highlighting the elements that are common to both. In this case, the intersection happens when Ali and Siti ordered the same items: Ali ∩ Siti = fries and a soft drink.</span>
+                  <span>
+                    Yes, that's exactly right! An intersection of sets occurs
+                    when the sets overlap, highlighting the elements that are
+                    common to both. In this case, the intersection happens when
+                    Ali and Siti ordered the same items: Ali ∩ Siti = fries and
+                    a soft drink.
+                  </span>
                 </div>
               </div>
             ) : (

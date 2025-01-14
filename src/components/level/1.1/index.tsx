@@ -69,10 +69,13 @@ export function Level1_1({ onNextLevel }: { onNextLevel?: () => void }) {
   };
 
   const checkAnswer = () => {
+    // check if all placed item is correct
     const allCorrect = droppedItems.every((droppedItem) => {
       const item = items.find((i) => i.id === droppedItem.id);
       return droppedItem.target === item.target;
     });
+    
+    // check if every item is placed
     const allItemsPlaced = items.every((item) =>
       droppedItems.map((a) => a.id).includes(item.id)
     );
@@ -83,7 +86,7 @@ export function Level1_1({ onNextLevel }: { onNextLevel?: () => void }) {
 
   return (
     <div>
-      <div className="prose mb-3">
+      <div className="prose mb-3 text-xl">
         <h2>1. Welcome to Exploration Adventures!</h2>
         <h3>1.1. Transport Challenge: Land, Sea, or Sky?</h3>
         <p>

@@ -65,10 +65,13 @@ export function Level1_2({ onNextLevel }: { onNextLevel?: () => void }) {
   };
 
   const checkAnswer = () => {
+    // check if all placed item is correct
     const allCorrect = droppedItems.every((droppedItem) => {
       const item = items.find((i) => i.id === droppedItem.id);
       return droppedItem.target === item.target;
     });
+
+    // check if every item is placed
     const allItemsPlaced = items.every((item) =>
       droppedItems.map((a) => a.id).includes(item.id)
     );
@@ -79,7 +82,7 @@ export function Level1_2({ onNextLevel }: { onNextLevel?: () => void }) {
 
   return (
     <div>
-      <div className="prose mb-3">
+      <div className="prose mb-3 text-xl">
         <h3>1.2. Classify the Eaters: Carnivores vs Omnivores!</h3>
         <p>
           Let's learn about animals and their eating habits! You'll see pictures

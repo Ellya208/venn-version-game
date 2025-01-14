@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Question1 } from "./question1";
 import { Question2 } from "./question2";
 import { Question3 } from "./question3";
 import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { shuffle } from "@/utils/shuffle";
 
 type DraggableItem = {
   id: string;
@@ -12,7 +13,7 @@ type DraggableItem = {
   target: string;
 };
 
-const items: DraggableItem[] = [
+const itemsOriginal: DraggableItem[] = [
   { id: "1.1", value: "Lolipop", image: "/B/lolipop.jpg", target: "L" },
   { id: "1.2", value: "Lolipop", image: "/B/lolipop.jpg", target: "L" },
   { id: "1.3", value: "Lolipop", image: "/B/lolipop.jpg", target: "L" },
@@ -36,6 +37,8 @@ const items: DraggableItem[] = [
 ];
 
 export function Level1_5({ onNextLevel }: { onNextLevel?: () => void }) {
+  const items = useMemo(() => shuffle(itemsOriginal), []);
+
   const [droppedItems, setDroppedItems] = useState<
     { id: string; target: string }[]
   >([]);
@@ -71,10 +74,13 @@ export function Level1_5({ onNextLevel }: { onNextLevel?: () => void }) {
   };
 
   const checkAnswer = () => {
+    // check if all placed item is correct
     const allCorrect = droppedItems.every((droppedItem) => {
       const item = items.find((i) => i.id === droppedItem.id);
       return droppedItem.target === item.target;
     });
+
+    // check if every item is placed
     const allItemsPlaced = items.every((item) =>
       droppedItems.map((a) => a.id).includes(item.id)
     );
@@ -85,7 +91,7 @@ export function Level1_5({ onNextLevel }: { onNextLevel?: () => void }) {
 
   return (
     <div>
-      <div className="prose mb-3">
+      <div className="prose mb-3 text-xl">
         <h3>1.5. A Sweet Union: Exploring Candy Sets!</h3>
         <p>
           Today, we are going shopping with Sarah. Sarah loves sweets, but she
@@ -98,109 +104,101 @@ export function Level1_5({ onNextLevel }: { onNextLevel?: () => void }) {
         <div className="relative">
           <img src="/B/cupboard.jpg" alt="" />
 
-          <div className="top-[33px] left-[229px] absolute flex gap-2">
-            {items
-              .filter((a) => a.target == "L")
-              .map((item) => {
-                const isDropped = droppedItems.some(
-                  (dropped) => dropped.id === item.id
-                );
-                return (
-                  <div
-                    key={item.id}
-                    draggable
-                    onDragStart={(e) => onDragStart(e, item.id)}
-                    className="rounded shadow-md bg-white cursor-grab"
-                    style={{ opacity: isDropped ? 0.5 : 1 }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.value}
-                      className="object-fill w-[35px]"
-                    />
-                  </div>
-                );
-              })}
+          <div className="top-[39px] left-[234px] absolute grid grid-cols-5 gap-2">
+            {items.slice(0, 5).map((item) => {
+              const isDropped = droppedItems.some(
+                (dropped) => dropped.id === item.id
+              );
+              return (
+                <div
+                  key={item.id}
+                  draggable
+                  onDragStart={(e) => onDragStart(e, item.id)}
+                  className="rounded shadow-md bg-white cursor-grab"
+                  style={{ opacity: isDropped ? 0.5 : 1 }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.value}
+                    className="object-fill w-[33px]"
+                  />
+                </div>
+              );
+            })}
           </div>
 
-          <div className="top-[123px] left-[249px] absolute flex gap-2">
-            {items
-              .filter((a) => a.target == "G")
-              .map((item) => {
-                const isDropped = droppedItems.some(
-                  (dropped) => dropped.id === item.id
-                );
-                return (
-                  <div
-                    key={item.id}
-                    draggable
-                    onDragStart={(e) => onDragStart(e, item.id)}
-                    className="rounded shadow-md bg-white cursor-grab"
-                    style={{ opacity: isDropped ? 0.5 : 1 }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.value}
-                      className="object-fill w-[35px]"
-                    />
-                  </div>
-                );
-              })}
+          <div className="top-[127px] left-[234px] absolute grid grid-cols-5 gap-2">
+            {items.slice(5, 10).map((item) => {
+              const isDropped = droppedItems.some(
+                (dropped) => dropped.id === item.id
+              );
+              return (
+                <div
+                  key={item.id}
+                  draggable
+                  onDragStart={(e) => onDragStart(e, item.id)}
+                  className="rounded shadow-md bg-white cursor-grab"
+                  style={{ opacity: isDropped ? 0.5 : 1 }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.value}
+                    className="object-fill w-[33px]"
+                  />
+                </div>
+              );
+            })}
           </div>
 
-          <div className="top-[225px] left-[233px] absolute flex flex-wrap w-[200px] gap-1 justify-center">
-            {items
-              .filter((a) => a.target == "C")
-              .map((item) => {
-                const isDropped = droppedItems.some(
-                  (dropped) => dropped.id === item.id
-                );
-                return (
-                  <div
-                    key={item.id}
-                    draggable
-                    onDragStart={(e) => onDragStart(e, item.id)}
-                    className="rounded shadow-md bg-white cursor-grab"
-                    style={{ opacity: isDropped ? 0.5 : 1 }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.value}
-                      className="object-fill h-[30px]"
-                    />
-                  </div>
-                );
-              })}
+          <div className="top-[215px] left-[234px] absolute grid grid-cols-5 gap-2">
+            {items.slice(10, 15).map((item) => {
+              const isDropped = droppedItems.some(
+                (dropped) => dropped.id === item.id
+              );
+              return (
+                <div
+                  key={item.id}
+                  draggable
+                  onDragStart={(e) => onDragStart(e, item.id)}
+                  className="rounded shadow-md bg-white cursor-grab"
+                  style={{ opacity: isDropped ? 0.5 : 1 }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.value}
+                    className="object-fill w-[33px]"
+                  />
+                </div>
+              );
+            })}
           </div>
 
-          <div className="top-[293px] left-[269px] absolute flex gap-2">
-            {items
-              .filter((a) => a.target == "T")
-              .map((item) => {
-                const isDropped = droppedItems.some(
-                  (dropped) => dropped.id === item.id
-                );
-                return (
-                  <div
-                    key={item.id}
-                    draggable
-                    onDragStart={(e) => onDragStart(e, item.id)}
-                    className="rounded shadow-md bg-white cursor-grab"
-                    style={{ opacity: isDropped ? 0.5 : 1 }}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.value}
-                      className="object-fill w-[35px]"
-                    />
-                  </div>
-                );
-              })}
+          <div className="top-[296px] left-[234px] absolute grid grid-cols-5 gap-2">
+            {items.slice(15, 20).map((item) => {
+              const isDropped = droppedItems.some(
+                (dropped) => dropped.id === item.id
+              );
+              return (
+                <div
+                  key={item.id}
+                  draggable
+                  onDragStart={(e) => onDragStart(e, item.id)}
+                  className="rounded shadow-md bg-white cursor-grab"
+                  style={{ opacity: isDropped ? 0.5 : 1 }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.value}
+                    className="object-fill w-[33px]"
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      <div className="prose mb-3">
+      <div className="prose mb-3 text-xl">
         <p className="my-0">
           Grab the sweets from the cupboard and put into the correct sets.
         </p>
@@ -419,13 +417,10 @@ export function Level1_5({ onNextLevel }: { onNextLevel?: () => void }) {
       <Question3 />
 
       <div className="flex justify-center items-center gap-2 mt-3">
-        <Button onClick={onNextLevel}>
-          Next level
-        </Button>
+        <Button onClick={onNextLevel}>Next level</Button>
       </div>
 
       <div className="h-32"></div>
-
     </div>
   );
 }

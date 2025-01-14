@@ -11,6 +11,8 @@ export const foodList = [
   { value: "ice_cream", label: "Ice cream", target: "ali" },
   { value: "burger", label: "Burger", target: "siti" },
   { value: "apple_pie", label: "Apple pie", target: "siti" },
+  { value: "fried_chicken", label: "Fried chicken", target: "outside" },
+  { value: "chips", label: "Chips", target: "outside" },
 ];
 
 export function Level1_3({ onNextLevel }: { onNextLevel?: () => void }) {
@@ -27,7 +29,7 @@ export function Level1_3({ onNextLevel }: { onNextLevel?: () => void }) {
 
   return (
     <div>
-      <div className="prose mb-3">
+      <div className="prose mb-3 text-xl">
         <h3>
           1.3. Welcome to MekDi Intersection: Where Sets Meet and Overlap!
         </h3>
@@ -38,12 +40,12 @@ export function Level1_3({ onNextLevel }: { onNextLevel?: () => void }) {
       </div>
 
       <div className="h-[520px] w-[800px] relative border border-gray-300 bg-white">
-        <div className="absolute flex flex-col items-center top-[10px]">
+        <div className="absolute flex flex-col items-center top-[30px]">
           <img src="/A/4.png" alt="Cashier" className="w-[180px]" />
           <span className="text-semibold">Cashier</span>
         </div>
 
-        <div className="absolute flex flex-col items-center top-[120px] right-0">
+        <div className="absolute flex flex-col items-center top-[150px] right-0">
           <img src="/A/2.png" alt="Ali" className="w-[180px]" />
           <span className="text-semibold">Ali</span>
         </div>
@@ -57,16 +59,18 @@ export function Level1_3({ onNextLevel }: { onNextLevel?: () => void }) {
           <img src="/A/3.png" alt="Teacher" className="w-[180px]" />
         </div>
 
-        <p className="absolute top-[40px] left-[170px] p-4 bg-orange-300 rounded-full">
-          Hello, Welcome to MekDi! Can I get your order please?
+        <p className="absolute top-[35px] left-[170px] py-4 px-6 bg-orange-300 rounded-full w-[550px] text-center text-lg">
+          Hello, Welcome to MekDi! Can I get your order please? We have chicken
+          nuggets, fries, a soft drink, some ice cream, burger, chips, apple pie
+          and fried chicken.
         </p>
-        <p className="absolute top-[160px] right-[140px] p-4 bg-cyan-300 rounded-full">
+        <p className="absolute top-[180px] right-[140px] p-4 bg-cyan-300 rounded-full text-lg">
           I'm getting chicken nuggets, fries, a soft drink, and some ice cream
         </p>
-        <p className="absolute top-[280px] left-[160px] p-4 bg-pink-300 rounded-full">
+        <p className="absolute top-[280px] left-[160px] p-4 bg-pink-300 rounded-full text-lg">
           I think I'll go for a burger, fries, a soft drink, and an apple pie
         </p>
-        <p className="absolute top-[420px] left-[140px] p-4 bg-gray-300 rounded-full">
+        <p className="absolute top-[420px] left-[140px] p-4 bg-gray-300 rounded-full text-lg">
           What are the same between their orders?
         </p>
       </div>

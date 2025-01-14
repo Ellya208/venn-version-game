@@ -18,7 +18,7 @@ import { Trophy } from "lucide-react";
 export function Level2_0({ onNextLevel }: { onNextLevel?: () => void }) {
   return (
     <div>
-      <div className="prose mb-3">
+      <div className="prose mb-3 text-xl">
         <h3>2. Let's put your skills to the test!</h3>
         <p>Here are some notes for you to revise before exercise time.</p>
         <img src="/operations.jpg" alt="" />

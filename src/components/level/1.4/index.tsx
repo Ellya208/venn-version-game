@@ -30,8 +30,8 @@ const outsidePositions = [
 ];
 
 export function Level1_4({ onNextLevel }: { onNextLevel?: () => void }) {
-  const inputsOutside = outsidePositions
-  const inputsInside = insidePositions
+  const inputsOutside = outsidePositions;
+  const inputsInside = insidePositions;
 
   const [showResult, setShowResult] = useState<boolean>(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
@@ -68,7 +68,7 @@ export function Level1_4({ onNextLevel }: { onNextLevel?: () => void }) {
 
   return (
     <div>
-      <div className="prose mb-3">
+      <div className="prose mb-3 text-xl">
         <h3>1.4. What's Not in the Set? Complements in Action!</h3>
         <p className="m-0">
           You are given a sample space {"S = {1,2,3,...,20}"}
@@ -89,6 +89,7 @@ export function Level1_4({ onNextLevel }: { onNextLevel?: () => void }) {
           <div className="w-[400px] h-[400px] top-[20px] left-[20px] relative">
             {inputsOutside.map((pos, index) => (
               <div
+                key={`${pos.x}_${pos.y}`}
                 className="absolute flex items-center gap-2"
                 style={{
                   top: `${pos.y}px`,
@@ -111,6 +112,7 @@ export function Level1_4({ onNextLevel }: { onNextLevel?: () => void }) {
             <div className="relative w-full h-full">
               {inputsInside.map((pos, index) => (
                 <div
+                  key={`${pos.x}_${pos.y}`}
                   className="absolute flex items-center gap-2"
                   style={{
                     top: `${pos.y}px`,
