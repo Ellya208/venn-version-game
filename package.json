@@ -24,7 +24,8 @@
     "react-geogebra": "^1.2.5",
     "tailwind-merge": "^2.5.5",
     "tailwind-variants": "^0.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
